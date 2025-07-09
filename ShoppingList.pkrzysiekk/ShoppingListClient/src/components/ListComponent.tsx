@@ -16,8 +16,30 @@ function ListComponent() {
       alert("Couldn't fetch data, check the connection or try again later");
     }
   };
+
+  const deleteMenuItem = async (menuId: number) => {
+    const url = `http://localhost:5217/ShoppingList/${menuId}`;
+    await fetch(url, { method: "DELETE" });
+  };
+
+  const createMenuItem = async (menuItem: MenuItem) => {
+    const url = `http://localhost:5217/ShoppingList`;
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(menuItem),
+    });
+  };
+
   useEffect(() => {
     fetchMenuItems(1, 20);
+    const menuItem: MenuItem = {
+      Name: "eyeyeyye",
+      IsChecked: true,
+    };
+    createMenuItem(menuItem);
   }, []);
   useEffect(() => {
     console.log(menuItems);

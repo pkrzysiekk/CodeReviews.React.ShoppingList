@@ -1,4 +1,5 @@
 export type MenuItem = {
-  id: number;
+  id?: number;
   Name: string;
+  IsChecked: boolean;
 };

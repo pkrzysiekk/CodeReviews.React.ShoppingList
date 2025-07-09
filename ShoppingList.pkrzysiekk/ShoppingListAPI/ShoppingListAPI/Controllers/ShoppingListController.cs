@@ -37,7 +37,7 @@ public class ShoppingListController : ControllerBase
         return Created(nameof(GetItem), new { id = item.Id });
     }
 
-    [HttpPost]
+    [HttpPut]
     public async Task<ActionResult<ShoppingItem>> UpdateItem([FromBody] ShoppingItem item)
     {
         await _service.UpdateItem(item);
