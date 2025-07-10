@@ -33,14 +33,27 @@ function ListComponent() {
     });
   };
 
+  const updateMenuItem = async (menuItem: MenuItem) => {
+    const url = `http://localhost:5217/ShoppingList`;
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(menuItem),
+    });
+  };
+
   useEffect(() => {
     fetchMenuItems(1, 20);
     const menuItem: MenuItem = {
-      Name: "eyeyeyye",
+      id: 3,
+      Name: "Edited ez",
       IsChecked: true,
     };
-    createMenuItem(menuItem);
+    updateMenuItem(menuItem);
   }, []);
+
   useEffect(() => {
     console.log(menuItems);
   }, [menuItems]);
