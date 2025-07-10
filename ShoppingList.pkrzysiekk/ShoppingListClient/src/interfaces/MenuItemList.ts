@@ -1,9 +1,9 @@
-import type { MenuItem } from "../types/menuItem";
+import type { MenuItem } from "../types/MenuItem";
 
 export interface MenuItemList {
   menuItems: MenuItem[];
-  addItem: void;
-  deleteItem: void;
-  updateItem: void;
-  getPagedItems: void;
+  addItem: (item: MenuItem) => Promise<void>;
+  deleteItem: (menuId: number) => Promise<void>;
+  updateItem: (item: MenuItem) => Promise<void>;
+  getPagedItems: (pageNumber: number, pageSize: number) => Promise<void>;
 }
