@@ -1,26 +1,32 @@
+:root {
+  --primary-color: #7fbd32;
+  --secondary-color: #448d76;
+  --dark-green: #093426;
+  --beige: #f3f7d4;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
+  background-color: var(--beige);
 }
 .main-list {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 1rem;
 }
 .checked {
   text-decoration: line-through;
   color: gray;
 }
-.delete-btn {
-}
-ul {
-  list-style-type: none;
+
+ol {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 1.5px;
 }
 ol li {
   font-size: 1.5rem;
@@ -30,6 +36,33 @@ ol li {
 
 .page-buttons {
   display: flex;
-  gap: 6rem;
+  justify-content: space-between;
   padding-bottom: 1rem;
+}
+
+button {
+  min-width: 2rem;
+  height: 2rem;
+  background-color: var(--secondary-color);
+}
+.delete-btn {
+  background-color: var(--secondary-color);
+  transition: background-color 0.3s ease;
+  border: 2px solid var(--primary-color);
+}
+.delete-btn:hover {
+  background-color: var(--dark-green);
+}
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.list-div {
+  height: 65vh;
+  overflow-y: auto; /* przewijanie, gdy elementów jest dużo */
+}
+.form-div form {
+  display: flex;
+  flex-direction: column;
 }
