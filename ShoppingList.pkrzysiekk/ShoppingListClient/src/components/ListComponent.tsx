@@ -50,10 +50,6 @@ function ListComponent() {
     console.log(menuItems);
   }, [menuItems]);
 
-  useEffect(() => {
-    fetchMenuItems(1, 20);
-  }, []);
-
   return (
     <div className="main-list">
       <MenuItemsList
@@ -75,7 +71,7 @@ function MenuItemsList({
   getPagedItems,
 }: MenuItemList) {
   const [pageNumber, setPageNumber] = useState(1);
-  const pageSize = 20;
+  const pageSize = 15;
 
   const handlePageNumberDecrement = () => {
     if (pageNumber > 1) setPageNumber((prev) => prev - 1);
@@ -126,14 +122,18 @@ function MenuItemsList({
   ));
 
   return (
-    <>
-      <ol>{items}</ol>
-      <PageButtons
-        decrementPageNumber={handlePageNumberDecrement}
-        incrementPageNumber={handlePageNumberIncrement}
-      />
-      <AddComponent handleItemAdd={handleItemAdd} />
-    </>
+    <div className="list-container">
+      <div className="list-div">
+        <ol>{items}</ol>
+      </div>
+      <div className="form-container">
+        <PageButtons
+          decrementPageNumber={handlePageNumberDecrement}
+          incrementPageNumber={handlePageNumberIncrement}
+        />
+        <AddComponent handleItemAdd={handleItemAdd} />
+      </div>
+    </div>
   );
 }
 function AddComponent({ handleItemAdd }: AddComponent) {
@@ -150,7 +150,7 @@ function AddComponent({ handleItemAdd }: AddComponent) {
     }
   };
   return (
-    <>
+    <div className="form-div">
       <form onSubmit={handleSubmit}>
         <label>
           Item Name:
@@ -158,7 +158,7 @@ function AddComponent({ handleItemAdd }: AddComponent) {
         </label>
         <button type="submit">Add new item</button>
       </form>
-    </>
+    </div>
   );
 }
 function PageButtons({
