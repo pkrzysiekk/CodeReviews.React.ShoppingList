@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import type { MenuItem } from "../types/MenuItem";
 import type { MenuItemList } from "../interfaces/MenuItemList";
 import type { AddComponent } from "../interfaces/AddComponent";
+import type { PageButtonsProps } from "../interfaces/PageButtonsProps";
 
 function ListComponent() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [menuPageNumber, setMenuPageNumber] = useState<number>(1);
 
   const fetchMenuItems = async (pageNumber: number, pageSize: number) => {
     const url = `http://localhost:5217/ShoppingList?pagenumber=${pageNumber}&pagesize=${pageSize}`;
@@ -55,7 +55,7 @@ function ListComponent() {
   }, []);
 
   return (
-    <>
+    <div className="main-list">
       <MenuItemsList
         menuItems={menuItems}
         addItem={createMenuItem}
@@ -63,7 +63,7 @@ function ListComponent() {
         updateItem={updateMenuItem}
         getPagedItems={fetchMenuItems}
       />
-    </>
+    </div>
   );
 }
 
@@ -76,6 +76,14 @@ function MenuItemsList({
 }: MenuItemList) {
   const [pageNumber, setPageNumber] = useState(1);
   const pageSize = 20;
+
+  const handlePageNumberDecrement = () => {
+    if (pageNumber > 1) setPageNumber((prev) => prev - 1);
+  };
+
+  const handlePageNumberIncrement = () => {
+    if (menuItems.length === pageSize) setPageNumber((prev) => prev + 1);
+  };
 
   const handleItemAdd = async (itemName: string) => {
     const item: MenuItem = { name: itemName, isChecked: false };
@@ -94,15 +102,17 @@ function MenuItemsList({
     getPagedItems(pageNumber, pageSize);
   };
 
+  useEffect(() => {
+    getPagedItems(pageNumber, pageSize);
+  }, [pageNumber]);
+
   const items = menuItems.map((item) => (
     <li
       onClick={() => {
         handleItemStateChange(item);
       }}
-      className={item.isChecked ? "checked" : "unchecked"}
       key={item.id}
     >
-      {item.name}
       <button
         onClick={() => {
           handleItemDelete(item.id!);
@@ -111,12 +121,17 @@ function MenuItemsList({
       >
         X
       </button>
+      <p className={item.isChecked ? "checked" : "unchecked"}>{item.name}</p>
     </li>
   ));
 
   return (
     <>
-      <ul>{items}</ul>
+      <ol>{items}</ol>
+      <PageButtons
+        decrementPageNumber={handlePageNumberDecrement}
+        incrementPageNumber={handlePageNumberIncrement}
+      />
       <AddComponent handleItemAdd={handleItemAdd} />
     </>
   );
@@ -144,6 +159,21 @@ function AddComponent({ handleItemAdd }: AddComponent) {
         <button type="submit">Add new item</button>
       </form>
     </>
+  );
+}
+function PageButtons({
+  decrementPageNumber,
+  incrementPageNumber,
+}: PageButtonsProps) {
+  return (
+    <div className="page-buttons">
+      <button onClick={decrementPageNumber} className="prev-page-btn">
+        &lt;
+      </button>
+      <button onClick={incrementPageNumber} className="next-page-btn">
+        &gt;
+      </button>
+    </div>
   );
 }
 export default ListComponent;
