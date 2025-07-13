@@ -15,7 +15,7 @@ public class ShoppingService : IShoppingService
 
     public async Task<ShoppingItem?> GetItem(int id)
     {
-       var item = await _repository.GetById(id);
+        var item = await _repository.GetById(id);
         return item;
     }
 

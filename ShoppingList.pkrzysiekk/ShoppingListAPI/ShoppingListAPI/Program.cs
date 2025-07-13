@@ -9,11 +9,8 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy  =>
-                      {
-                          policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
-                      });
+    options.AddPolicy(MyAllowSpecificOrigins,
+        policy => { policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod(); });
 });
 
 builder.Services.AddControllers();
@@ -34,12 +31,10 @@ using (var scope = app.Services.CreateScope())
     if (!db.ShoppingItems.Any())
         db.Initialize();
 }
+
 app.UseCors(MyAllowSpecificOrigins);
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+if (app.Environment.IsDevelopment()) app.MapOpenApi();
 
 app.UseAuthorization();
 

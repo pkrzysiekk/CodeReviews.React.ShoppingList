@@ -6,9 +6,10 @@ import type { PageButtonsProps } from "../interfaces/PageButtonsProps";
 
 function ListComponent() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const ENDPOINT_URL = "http://localhost:5217/ShoppingList";
 
   const fetchMenuItems = async (pageNumber: number, pageSize: number) => {
-    const url = `http://localhost:5217/ShoppingList?pagenumber=${pageNumber}&pagesize=${pageSize}`;
+    const url = `${ENDPOINT_URL}?pagenumber=${pageNumber}&pagesize=${pageSize}`;
     try {
       const data = await fetch(url);
       const menu = await data.json();
@@ -20,12 +21,12 @@ function ListComponent() {
   };
 
   const deleteMenuItem = async (menuId: number) => {
-    const url = `http://localhost:5217/ShoppingList/${menuId}`;
+    const url = `${ENDPOINT_URL}/${menuId}`;
     await fetch(url, { method: "DELETE" });
   };
 
   const createMenuItem = async (menuItem: MenuItem) => {
-    const url = `http://localhost:5217/ShoppingList`;
+    const url = ENDPOINT_URL;
     await fetch(url, {
       method: "POST",
       headers: {
@@ -36,7 +37,7 @@ function ListComponent() {
   };
 
   const updateMenuItem = async (menuItem: MenuItem) => {
-    const url = `http://localhost:5217/ShoppingList`;
+    const url = ENDPOINT_URL;
     await fetch(url, {
       method: "PUT",
       headers: {
@@ -45,10 +46,6 @@ function ListComponent() {
       body: JSON.stringify(menuItem),
     });
   };
-
-  useEffect(() => {
-    console.log(menuItems);
-  }, [menuItems]);
 
   return (
     <div className="main-list">
@@ -71,7 +68,7 @@ function MenuItemsList({
   getPagedItems,
 }: MenuItemList) {
   const [pageNumber, setPageNumber] = useState(1);
-  const pageSize = 15;
+  const pageSize = 12;
 
   const handlePageNumberDecrement = () => {
     if (pageNumber > 1) setPageNumber((prev) => prev - 1);

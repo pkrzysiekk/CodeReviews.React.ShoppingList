@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
 :root {
   --primary-color: #7fbd32;
   --secondary-color: #448d76;
@@ -11,6 +13,7 @@
 }
 body {
   background-color: var(--beige);
+  font-family: "Pacifico", cursive;
 }
 .main-list {
   display: flex;
@@ -59,8 +62,8 @@ button {
   align-items: center;
 }
 .list-div {
-  height: 65vh;
-  overflow-y: auto; /* przewijanie, gdy elementów jest dużo */
+  height: 70vh;
+  overflow-y: auto;
 }
 .form-div form {
   display: flex;

@@ -9,16 +9,17 @@ namespace ShoppingListAPI.Controllers;
 public class ShoppingListController : ControllerBase
 {
     private readonly IShoppingService _service;
+
     public ShoppingListController(IShoppingService service)
     {
-       _service = service; 
+        _service = service;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ShoppingItem>>> GetPagedItems([FromQuery] int pageNumber,
         [FromQuery] int pageSize)
     {
-        var list = await _service.GetPagedItems( pageNumber,pageSize);
+        var list = await _service.GetPagedItems(pageNumber, pageSize);
         return Ok(list);
     }
 
@@ -30,6 +31,7 @@ public class ShoppingListController : ControllerBase
             return NotFound();
         return Ok(item);
     }
+
     [HttpPost]
     public async Task<ActionResult<ShoppingItem>> CreateItem([FromBody] ShoppingItem item)
     {
@@ -52,6 +54,5 @@ public class ShoppingListController : ControllerBase
             return NotFound();
         await _service.DeleteItem(item);
         return Ok("Item deleted");
-        
     }
 }

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using ShoppingListAPI.Data;
 using ShoppingListAPI.Models;
 
@@ -6,20 +5,21 @@ namespace ShoppingListAPI.Repository;
 
 public class ShoppingRepository : IRepository<ShoppingItem>
 {
-    private readonly ShoppingContext  _context;
-    
+    private readonly ShoppingContext _context;
+
     public ShoppingRepository(ShoppingContext context)
     {
         _context = context;
     }
+
     public async Task<ShoppingItem?> GetById(int id)
     {
-        return await  _context.ShoppingItems.FindAsync(id);
+        return await _context.ShoppingItems.FindAsync(id);
     }
 
-    public  IQueryable<ShoppingItem> GetAll()
+    public IQueryable<ShoppingItem> GetAll()
     {
-        return  _context.ShoppingItems.AsQueryable();
+        return _context.ShoppingItems.AsQueryable();
     }
 
     public async Task Add(ShoppingItem item)
@@ -35,10 +35,9 @@ public class ShoppingRepository : IRepository<ShoppingItem>
         {
             itemToUpdate.Name = item.Name;
             itemToUpdate.isChecked = item.isChecked;
-            
+
             await SaveChanges();
         }
-
     }
 
     public async Task Delete(ShoppingItem item)
