@@ -22,29 +22,41 @@ function ListComponent() {
 
   const deleteMenuItem = async (menuId: number) => {
     const url = `${ENDPOINT_URL}/${menuId}`;
-    await fetch(url, { method: "DELETE" });
+    try {
+      await fetch(url, { method: "DELETE" });
+    } catch (err) {
+      alert("Couldn't delete item, check the connection or try again later");
+    }
   };
 
   const createMenuItem = async (menuItem: MenuItem) => {
     const url = ENDPOINT_URL;
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(menuItem),
-    });
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(menuItem),
+      });
+    } catch (err) {
+      alert("Couldn't create item, check the connection or try again later");
+    }
   };
 
   const updateMenuItem = async (menuItem: MenuItem) => {
     const url = ENDPOINT_URL;
-    await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(menuItem),
-    });
+    try {
+      await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(menuItem),
+      });
+    } catch (err) {
+      alert("Couldn't update item, check the connection or try again later");
+    }
   };
 
   return (
