@@ -11,6 +11,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: var(--beige);
   font-family: "Pacifico", cursive;
@@ -40,6 +41,7 @@ ol li {
 .page-buttons {
   display: flex;
   justify-content: space-between;
+  font-family: "Pacifico", cursive;
   padding-bottom: 1rem;
 }
 
@@ -47,6 +49,7 @@ button {
   min-width: 2rem;
   height: 2rem;
   background-color: var(--secondary-color);
+  font-family: "Pacifico", cursive;
 }
 .delete-btn {
   background-color: var(--secondary-color);
