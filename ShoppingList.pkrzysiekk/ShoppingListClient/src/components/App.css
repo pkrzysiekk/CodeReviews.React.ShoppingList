@@ -45,11 +45,16 @@ ol li {
   padding-bottom: 1rem;
 }
 
+.page-buttons button:hover {
+  background-color: var(--beige);
+}
+
 button {
   min-width: 2rem;
   height: 2rem;
   background-color: var(--secondary-color);
   font-family: "Pacifico", cursive;
+  cursor: pointer;
 }
 .delete-btn {
   background-color: var(--secondary-color);
@@ -71,4 +76,12 @@ button {
 .form-div form {
   display: flex;
   flex-direction: column;
+}
+
+.form-div button {
+  background-color: var(--secondary-color);
+  transition: background-color 0.3s ease;
+}
+.form-div button:hover {
+  background-color: var(--dark-green);
 }
